@@ -1,5 +1,6 @@
 const notesCtrl={}
-const Note= require('../models/Notes')
+const Note= require('../models/Notes');
+require('../server');
 
 
 notesCtrl.renderNoteForm=(req,res)=>{
@@ -11,7 +12,7 @@ notesCtrl.createNewNote=async(req,res)=>{
     const {title,description}=req.body;
     const newnote=new Note({title,description});
     await newnote.save();
-    console.log(newnote);
+    req.flash('success_msg','Successfully created')
     res.redirect('/notes')
 }
 
@@ -30,12 +31,14 @@ notesCtrl.renderEditForm=async(req,res)=>{
 notesCtrl.updateNote=async(req,res)=>{
     const{title,description}=req.body;
    await Note.findByIdAndUpdate(req.params.id,{title,description})
-    
+   req.flash('success_msg','note Updated Successfully')
+
     res.redirect('/notes')
 }
 
 notesCtrl.deleteNote=async(req,res)=>{
    await Note.findByIdAndDelete(req.params.id)
+   req.flash('success_msg','note Deleted Successfully')
     res.redirect('/notes')
 }
 
