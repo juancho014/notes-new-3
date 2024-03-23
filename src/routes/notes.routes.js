@@ -6,17 +6,18 @@ const{renderNoteForm,
       renderEditForm,
       updateNote,
       deleteNote}=require('../controllers/notes.controllers');
+const{isAuthenticated}=require('../helpers/auth')      
 
-router.get('/notes/add',renderNoteForm);
+router.get('/notes/add',isAuthenticated,renderNoteForm);
 
-router.post('/notes/new-note',createNewNote);
+router.post('/notes/new-note',isAuthenticated,createNewNote);
 
-router.get('/notes',renderNotes);
+router.get('/notes',isAuthenticated,renderNotes);
 
-router.get('/notes/edit/:id',renderEditForm);
+router.get('/notes/edit/:id',isAuthenticated,renderEditForm);
 
-router.put('/notes/edit/:id',updateNote);
+router.put('/notes/edit/:id',isAuthenticated,updateNote);
 
-router.delete('/notes/delete/:id',deleteNote);
+router.delete('/notes/delete/:id',isAuthenticated,deleteNote);
 
 module.exports =router;

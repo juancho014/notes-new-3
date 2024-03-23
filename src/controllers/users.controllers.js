@@ -1,4 +1,6 @@
-const usersCtrl={}
+const usersCtrl={};
+const passport=require('passport');
+
 require('../server');
 
 const User =require('../models/User')
@@ -41,12 +43,23 @@ usersCtrl.renderSigninForm =(req,res)=>{
 }
 
 usersCtrl.signin =(req,res)=>{
-
-    res.send('signin')
+    passport.authenticate('local',{
+        successRedirect:'/notes',
+        failureRedirect:'/users/signin',
+        failureFlash:true
+    })(req,res)
+    
 }
 
 usersCtrl.logout =(req,res)=>{
-    res.send('logout')
+   
+    req.logout( (err) => {
+
+        if (err) { return next(err); }
+        req.flash( "success_msg" , "Session cerrada" );
+        res.redirect( "/users/signin" );
+
+    });
 }
 
 module.exports = usersCtrl;

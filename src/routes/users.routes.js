@@ -4,7 +4,7 @@ const{renderSignUpForm,
       signup,
       renderSigninForm,
       signin,
-      logout}=require('../controllers/users.controllers')
+      logout}=require('../controllers/users.controllers')    
 
 router.get('/users/signup',renderSignUpForm)
 
