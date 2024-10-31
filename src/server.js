@@ -52,7 +52,7 @@ const hbs = exphbs.create({
   app.engine(".hbs", hbs.engine);
 app.use(cors());
 app.set('view engine', '.hbs');
-app.use(morgan());
+app.use(morgan('dev'));
 app.use(require('./routes/index.routes'));
 app.use(require('./routes/notes.routes'));
 app.use(require('./routes/users.routes'));
